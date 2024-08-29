@@ -50,6 +50,11 @@ The POC is some pretty shoddy wire-pasta, but it works brilliantly...and is fun:
    IC's happened to land on my breadboard, more than anything. **Just mind your
    product terms!** (The number of product terms available to each macrocell
    varies by pin).
+ - If you don't have "spare" 22V10's, you can replace the mod800/mod525 counters
+   with synchronous counters or ripple-counters + latches. If you spec out your
+   parts, mind your progpagation timing, and maybe add some additional product
+   terms to your equations, you might be able to get away with a couple of 10+
+   bit ripple counters too!
 
 ## Misc
 
