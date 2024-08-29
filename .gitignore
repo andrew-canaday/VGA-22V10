@@ -1,0 +1,7 @@
+.DS_Store
+*.chp
+*.fus
+*.jed
+*.pin
+.venv
+venv

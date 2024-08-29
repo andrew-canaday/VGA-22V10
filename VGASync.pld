@@ -1,0 +1,111 @@
+GAL22V10
+VGASync
+
+; =============================================================================
+;
+; Copyright (c) 2024 Andrew T. Canaday
+; This file is part of VGA-22V10, which is licensed under the MIT license.
+;
+; Permission is hereby granted, free of charge, to any person obtaining a copy
+; of this software and associated documentation files (the "Software"), to
+; deal in the Software without restriction, including without limitation the
+; rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+; sell copies of the Software, and to permit persons to whom the Software is
+; furnished to do so, subject to the following conditions:
+;
+; The above copyright notice and this permission notice shall be included in
+; all copies or substantial portions of the Software.
+;
+; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+; IN THE SOFTWARE.
+;
+; -----------------------------------------------------------------------------
+CLK    L2     L4     L8    L16   L512   L5b8   P8     P4    P2    P1    GND
+P512   P256   P128   P64   P32   P16    VBlk   LINE   VIS   HSN   VSN   VCC
+
+; -----------------------------------
+; VGA Horizontal:
+;
+; 639: 0b1001111111 (last visible)
+; 640: 0b1010000000 (end visible / front porch start)
+; 656: 0b1010010000 (start hsync / front porch end)
+; 751: 0b1010111111 (last hsync)
+; 752: 0b1011110000 (end hsync / back porch start)
+; 768: 0b1100000000 (end back porch)
+; 800: 0b1100100000 (end line)
+;
+; -----------------------------------
+; VGA Vertical:
+;
+; 480: 0b0111100000 (end visible)
+; 490: 0b0111101010 (start vsync)
+; 491: 0b0111101011
+; 492: 0b0111101100 (end vsync)
+; 525: 0b1000001101
+;
+; ----------------------------------
+
+
+VBlk.R  =  L5b8 + L512
+
+
+/VIS    =  P512 *  P128 +
+           P512 *  P256 +
+           VBlk
+
+/HSN.R  =  P512 * /P256 *  P128 * /P64 * /P32 *  P16 +
+           P512 * /P256 *  P128 * /P64 *  P32 * /P16 +
+           P512 * /P256 *  P128 * /P64 *  P32 *  P16 +
+           P512 * /P256 *  P128 *  P64 * /P32 * /P16 +
+           P512 * /P256 *  P128 *  P64 * /P32 *  P16 +
+           P512 * /P256 *  P128 *  P64 *  P32 * /P16
+
+VSN.R   = /L512 *  L5b8 * /L16 *  L8 * /L4 *  L2
+
+LINE.R   = /HSN
+
+; =============================================================================
+; Some old drivers increment the line at specific pixel counts. I am not sure
+; that it matters, but here they are anyway:
+;
+; -----
+; 0:
+; LINE  = /P512 * /P256 * /P128 * /P64 * /P32 * /P16 * /P8 * /P4 * /P2 * /P1
+;
+; -----
+; 648:
+; LINE  =   P512 * /P256 * P128 * /P64 * /P32 * /P16 * /P8 * /P4 * /P2 * /P1
+;
+; -----
+; 656:
+; LINE  =   P512 * /P256 * P128 * /P64 * /P32 *  P16 * /P8 * /P4 * /P2 * /P1
+;
+; -----
+; 752:
+; LINE  =   P512 * /P256 *  P128 *  P64 *  P32 *  P16 * /P8 * /P4 * /P2
+;
+; -----
+; 760:
+; LINE  =   P512 * /P256 *  P128 *  P64 *  P32 *  P16 *  P8 * /P4 * /P2 * /P1
+; -----
+; 780:
+; LINE  =   P512 *  P256 * /P128 * /P64 * /P32 * /P16 * P8 * P4 * /P2 * /P1
+;
+; -----
+; 799:
+; LINE  =   P512 *  P256 * /P128 * /P64 * /P32 * P16 * P8 * P4 * P2
+;
+; -----
+; 800:
+; LINE  =   P512 * /P256 * P128 * /P64 * /P32 *  P16 * /P8 * /P4 * /P2
+; -----------------------------------------------------------------------------
+
+
+DESCRIPTION
+
+VGA 640x80 @ 59.9Hz video driver.
