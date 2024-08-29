@@ -42,19 +42,19 @@ The POC is some pretty shoddy wire-pasta, but it works brilliantly...and is fun:
 
 ## Notes
 
- - I'm sure it's possible to reduce chip-count — e.g. moving some of the sync
+ - I'm sure it's possible to reduce chip-count or make this more elegant — e.g. moving some of the sync
    counter logic from one IC into `VGASync.pld` / using some outputs in
-   tri-state mode — or make this more elegant. This isn't the _optimal_ solution;
-   it's just the easiest off-the-cuff solution with the proper timing.
- - Pinouts: _these are malleable!_ The current version is informed by where the
-   IC's happened to land on my breadboard, more than anything. **Just mind your
-   product terms!** (The number of product terms available to each macrocell
-   varies by pin).
+   tri-state mode. This isn't the _optimal_ solution; it's just an easy,
+   off-the-cuff, solution with proper timing.
+ - Pinouts: _these are malleable!_ The current disposition is informed, more than
+   anything else, by where the IC's happened to land on my breadboard.
+   **Just mind your product terms!** (The number of product terms available to each
+   macrocell varies by pin).
  - If you don't have "spare" 22V10's, you can replace the mod800/mod525 counters
    with synchronous counters or ripple-counters + latches. If you spec out your
-   parts, mind your progpagation timing, and maybe add some additional product
-   terms to your equations, you might be able to get away with a couple of 10+
-   bit ripple counters too!
+   parts, mind your gate delays, and maybe add some additional product terms
+   to your equations, you might be able to get away with a couple of 10+ bit
+   ripple counters too!
 
 ## Misc
 
