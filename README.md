@@ -18,7 +18,7 @@ I had some ATF22V10C's lying around and tossed together a quick VGA card:
  - Resolution: 640x480
  - Refresh: 59.9Hz
  - 3 x ATF22V10C's
- - 1 x SN74SL21 (Dual, 4-input, positive, `AND`)
+ - 1 x SN74**F**21 (Dual, 4-input, positive, `AND` — _mind your [Logic Family!](https://en.wikipedia.org/wiki/Logic_family#Monolithic_integrated_circuit_logic_families_compared)_)
 
 The POC is some pretty shoddy wire-pasta, but it works brilliantly...and is fun:
 
