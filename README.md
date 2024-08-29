@@ -81,5 +81,5 @@ red, green, and blue.
 Have some fast CMOS or TTL logic gates lying around? Taking the output from one
 or more bits from `VAddr` and `HAddr`, passing them through some gates, and
 `AND`'ing them with the `Visisble` flag is a great way to check your pixel
-alignment.
+alignment (this is how the grid pattern in the screenshot above was generated).
 
