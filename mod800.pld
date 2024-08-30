@@ -27,36 +27,44 @@ Mod800
 ;
 ; -----------------------------------------------------------------------------
 CLK   NC   NC   NC   NC   NC   NC   NC   NC   NC   NC   GND
-RST   Q1   Q2   Q3   Q4   QA   Q9   Q8   Q7   Q6   Q5   VCC
+RST   Q0   Q1   Q2   Q3   Q9   Q8   Q7   Q6   Q5   Q4   VCC
 
 
-Q1.R = /RST * /Q1
+Q0.R = /RST * /Q0
 
+
+Q1.R = /RST *  Q1 * /Q0 +
+       /RST * /Q1 *  Q0
 
 Q2.R = /RST *  Q2 * /Q1 +
-       /RST * /Q2 *  Q1
+       /RST *  Q2 * /Q0 +
+       /RST * /Q2 *  Q1 *  Q0
 
 Q3.R = /RST *  Q3 * /Q2 +
        /RST *  Q3 * /Q1 +
-       /RST * /Q3 *  Q2 *  Q1
+       /RST *  Q3 * /Q0 +
+       /RST * /Q3 *  Q2 *  Q1 *  Q0
 
 Q4.R = /RST *  Q4 * /Q3 +
        /RST *  Q4 * /Q2 +
        /RST *  Q4 * /Q1 +
-       /RST * /Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q4 * /Q0 +
+       /RST * /Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 Q5.R = /RST *  Q5 * /Q4 +
        /RST *  Q5 * /Q3 +
        /RST *  Q5 * /Q2 +
        /RST *  Q5 * /Q1 +
-       /RST * /Q5 *  Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q5 * /Q0 +
+       /RST * /Q5 *  Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 Q6.R = /RST *  Q6 * /Q5 +
        /RST *  Q6 * /Q4 +
        /RST *  Q6 * /Q3 +
        /RST *  Q6 * /Q2 +
        /RST *  Q6 * /Q1 +
-       /RST * /Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q6 * /Q0 +
+       /RST * /Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 Q7.R = /RST *  Q7 * /Q6 +
        /RST *  Q7 * /Q5 +
@@ -64,7 +72,8 @@ Q7.R = /RST *  Q7 * /Q6 +
        /RST *  Q7 * /Q3 +
        /RST *  Q7 * /Q2 +
        /RST *  Q7 * /Q1 +
-       /RST * /Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q7 * /Q0 +
+       /RST * /Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 Q8.R = /RST *  Q8 * /Q7 +
        /RST *  Q8 * /Q6 +
@@ -73,7 +82,8 @@ Q8.R = /RST *  Q8 * /Q7 +
        /RST *  Q8 * /Q3 +
        /RST *  Q8 * /Q2 +
        /RST *  Q8 * /Q1 +
-       /RST * /Q8 *  Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q8 * /Q0 +
+       /RST * /Q8 *  Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 Q9.R = /RST *  Q9 * /Q8 +
        /RST *  Q9 * /Q7 +
@@ -83,22 +93,12 @@ Q9.R = /RST *  Q9 * /Q8 +
        /RST *  Q9 * /Q3 +
        /RST *  Q9 * /Q2 +
        /RST *  Q9 * /Q1 +
-       /RST * /Q9 *  Q8 *  Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1
-
-QA.R = /RST *  QA * /Q9 +
-       /RST *  QA * /Q8 +
-       /RST *  QA * /Q7 +
-       /RST *  QA * /Q6 +
-       /RST *  QA * /Q5 +
-       /RST *  QA * /Q4 +
-       /RST *  QA * /Q3 +
-       /RST *  QA * /Q2 +
-       /RST *  QA * /Q1 +
-       /RST * /QA *  Q9 *  Q8 *  Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1
+       /RST *  Q9 * /Q0 +
+       /RST * /Q9 *  Q8 *  Q7 *  Q6 *  Q5 *  Q4 *  Q3 *  Q2 *  Q1 *  Q0
 
 
-AR  =  QA * Q9 * /Q8 * /Q7 * Q6 * /Q5 * /Q4 * /Q3 * /Q2 * /Q1
+AR  =  Q9 * Q8 * /Q7 * /Q6 * Q5 * /Q4 * /Q3 * /Q2 * /Q1 * /Q0
 
 DESCRIPTION
 
-Synchronous mod 800 counter.
+Synchronous mod 800 counter. Asynchronous reset when RST is HIGH.
