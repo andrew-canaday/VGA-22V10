@@ -39,7 +39,7 @@ The POC is some pretty shoddy wire-pasta, but it works brilliantly...and is fun:
 
 ### PLD Sources
 
-> :information_source: **Schematic**: [PDF](./doc/22V10C-VGA-Card.pdf) / [SVG](./doc/22V10C-VGA-Card.svg)
+> :information_source: **Schematic**: [PDF](./doc/schematic/22V10C-VGA-Card.pdf) / [SVG](./doc/schematic/22V10C-VGA-Card.svg)
 
  - `VGASync.pld` (ATF22V10C): HSync, VSync, Visible, and VBlank
  - `mod800.pld` (ATF22V10C): `% 800` counter
