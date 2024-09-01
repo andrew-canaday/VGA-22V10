@@ -18,7 +18,7 @@ MKFILE_ABSDIR := $(abspath $(MKFILE_DIR))
 GALETTE ?= galette
 
 BUILDTMP ?= $(MKFILE_DIR)/build-tmp
-UNIT ?= VGA-Sync
+UNIT ?= VGASync
 PLD_FILE ?= $(MKFILE_DIR)/$(UNIT).pld
 JED_FILE ?= $(MKFILE_DIR)/$(UNIT).jed
 DEV_NAME ?= "ATF22V10C(UES)"
@@ -63,7 +63,7 @@ help: ## Print this makefile help menu
 #---------------------------------------
 
 all: \
-	VGA-Sync.jed \
+	VGASync.jed \
 	counter800.jed \
 	counter525.jed
 
